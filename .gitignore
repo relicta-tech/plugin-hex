@@ -1,0 +1,12 @@
+# Binaries
+hex
+hex_*
+*.exe
+dist/
+*.tar.gz
+*.zip
+.idea/
+.vscode/
+*.swp
+.DS_Store
+coverage.out
