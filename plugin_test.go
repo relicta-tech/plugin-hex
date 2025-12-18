@@ -157,8 +157,8 @@ func TestValidate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			// Set environment variables
 			for k, v := range tt.envVars {
-				os.Setenv(k, v)
-				defer os.Unsetenv(k)
+				_ = os.Setenv(k, v)
+				defer func(key string) { _ = os.Unsetenv(key) }(k)
 			}
 
 			p := &HexPlugin{}
@@ -278,13 +278,13 @@ func TestParseConfig(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			// Clear relevant env vars
-			os.Unsetenv("HEX_API_KEY")
-			os.Unsetenv("HEX_ORGANIZATION")
+			_ = os.Unsetenv("HEX_API_KEY")
+			_ = os.Unsetenv("HEX_ORGANIZATION")
 
 			// Set environment variables
 			for k, v := range tt.envVars {
-				os.Setenv(k, v)
-				defer os.Unsetenv(k)
+				_ = os.Setenv(k, v)
+				defer func(key string) { _ = os.Unsetenv(key) }(k)
 			}
 
 			cp := helpers.NewConfigParser(tt.config)
